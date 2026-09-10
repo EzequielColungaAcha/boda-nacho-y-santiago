@@ -217,7 +217,7 @@ function guestNamesFromParams() {
     const lines = [];
     if (para) lines.push(para);
     lines.push(...nombres);
-    if (lines.length === 0) lines.push("Invitados");
+    if (lines.length === 0) lines.push("");
     return lines;
 }
 
@@ -240,13 +240,14 @@ function whenMediaReady(el) {
     });
 }
 
-function initGate() {
+async function initGate() {
     const gate = document.getElementById("gate");
     const list = document.getElementById("gate-names");
     const main = document.getElementById("inicio");
     const continueBtn = document.getElementById("gate-continue");
     if (!gate || !list || !main) return;
 
+    await document.fonts.load('1em "Snell Roundhand"');
     for (const name of guestNamesFromParams()) {
         const line = document.createElement("p");
         line.textContent = name;
