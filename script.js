@@ -124,14 +124,34 @@ function initGallery() {
     document.querySelector(".gallery-nav.next")?.addEventListener("click", () => go(index + 1));
 
     let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let swiping = false;
+
+    const finishSwipe = () => {
+        if (!swiping) return;
+        swiping = false;
+        const deltaX = lastX - startX;
+        const deltaY = lastY - startY;
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            go(index + (deltaX < 0 ? 1 : -1));
+        }
+    };
+
     track.addEventListener("pointerdown", (event) => {
-        startX = event.clientX;
-        track.setPointerCapture(event.pointerId);
+        if (!event.isPrimary) return;
+        swiping = true;
+        startX = lastX = event.clientX;
+        startY = lastY = event.clientY;
     });
-    track.addEventListener("pointerup", (event) => {
-        const delta = event.clientX - startX;
-        if (Math.abs(delta) > 40) go(index + (delta < 0 ? 1 : -1));
+    track.addEventListener("pointermove", (event) => {
+        if (!swiping || !event.isPrimary) return;
+        lastX = event.clientX;
+        lastY = event.clientY;
     });
+    track.addEventListener("pointerup", finishSwipe);
+    track.addEventListener("pointercancel", finishSwipe);
 
     go(0);
 }
