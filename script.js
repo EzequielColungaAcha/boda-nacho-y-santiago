@@ -97,9 +97,10 @@ function initAudio() {
 }
 
 function initGallery() {
-    const track = document.querySelector(".gallery-track");
+    const gallery = document.querySelector(".gallery");
+    const track = gallery?.querySelector(".gallery-track");
     const slides = track ? Array.from(track.querySelectorAll("img")) : [];
-    if (!track || slides.length === 0) return;
+    if (!gallery || !track || slides.length === 0) return;
 
     let index = 0;
     const dots = document.querySelector(".dots");
@@ -129,6 +130,18 @@ function initGallery() {
     let lastY = 0;
     let swiping = false;
 
+    const beginSwipe = (x, y) => {
+        swiping = true;
+        startX = lastX = x;
+        startY = lastY = y;
+    };
+
+    const moveSwipe = (x, y) => {
+        if (!swiping) return;
+        lastX = x;
+        lastY = y;
+    };
+
     const finishSwipe = () => {
         if (!swiping) return;
         swiping = false;
@@ -139,19 +152,35 @@ function initGallery() {
         }
     };
 
-    track.addEventListener("pointerdown", (event) => {
-        if (!event.isPrimary) return;
-        swiping = true;
-        startX = lastX = event.clientX;
-        startY = lastY = event.clientY;
+    const cancelSwipe = () => {
+        swiping = false;
+    };
+
+    gallery.addEventListener("touchstart", (event) => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+        beginSwipe(touch.clientX, touch.clientY);
+    }, { passive: true });
+    gallery.addEventListener("touchmove", (event) => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+        moveSwipe(touch.clientX, touch.clientY);
+    }, { passive: true });
+    gallery.addEventListener("touchend", finishSwipe, { passive: true });
+    gallery.addEventListener("touchcancel", cancelSwipe, { passive: true });
+
+    gallery.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "mouse" || !event.isPrimary) return;
+        beginSwipe(event.clientX, event.clientY);
     });
-    track.addEventListener("pointermove", (event) => {
-        if (!swiping || !event.isPrimary) return;
-        lastX = event.clientX;
-        lastY = event.clientY;
+    gallery.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse" || !event.isPrimary) return;
+        moveSwipe(event.clientX, event.clientY);
     });
-    track.addEventListener("pointerup", finishSwipe);
-    track.addEventListener("pointercancel", finishSwipe);
+    gallery.addEventListener("pointerup", (event) => {
+        if (event.pointerType !== "mouse" || !event.isPrimary) return;
+        finishSwipe();
+    });
 
     go(0);
 }

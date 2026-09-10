@@ -693,6 +693,7 @@ h1, h2, h3, p {
     overflow: hidden;
     aspect-ratio: 3 / 4;
     background: rgba(0, 0, 0, 0.05);
+    touch-action: pan-y;
 }
 
 .gallery-track {
