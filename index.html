@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nacho &amp; Santi</title>
+    <meta name="description" content="Nacho y Santiago — Sábado 14 de Noviembre 2026">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://static.parastorage.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Noto+Serif+Display:wght@400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="is-gated">
+    <div class="gate" id="gate" aria-busy="true">
+        <div class="gate-names" id="gate-names"></div>
+        <button class="gate-continue" id="gate-continue" type="button" aria-hidden="true" tabindex="-1">Continuar</button>
+    </div>
+    <main id="inicio" inert>
+        <section class="hero" aria-label="Portada">
+            <video class="hero-bg" muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-label="Nacho y Santi" width="720" height="1280">
+                <source src="assets/hero-video.mp4" type="video/mp4">
+            </video>
+            <div class="hero-dim hero-dim-top" aria-hidden="true"></div>
+            <img class="hero-inset" src="assets/IMG_0577.jpg" alt="" width="1200" height="1600">
+            <img class="hero-mono-primary" src="assets/Black and Red Heart Wedding Logo - 4.png" alt="Monograma M&amp;E" width="1563" height="1563">
+            <img class="hero-mono-mark" src="assets/monogram-header.png" alt="" width="1563" height="1563">
+        </section>
+
+        <section class="names">
+            <img class="nosotros" src="assets/nuestra-boda.png" alt="Nosotros" width="200" height="200">
+            <div class="names-stage">
+                <h1 class="given first">Nacho</h1>
+                <p class="amp">&amp;</p>
+                <h2 class="given second">Santiago</h2>
+            </div>
+            <div class="music">
+                <p class="song-label">Reproduce nuestra canción</p>
+                <button class="play-btn" id="play-song" type="button" aria-label="Reproducir" aria-pressed="false">
+                    <svg data-icon="play" viewBox="0 0 42 47" aria-hidden="true">
+                        <path fill="currentColor" d="M0 47V0l42 23.5z"/>
+                    </svg>
+                    <svg data-icon="pause" class="is-hidden" viewBox="0 0 42 47" aria-hidden="true">
+                        <rect x="6" y="4" width="10" height="39" fill="currentColor"/>
+                        <rect x="26" y="4" width="10" height="39" fill="currentColor"/>
+                    </svg>
+                </button>
+                <audio id="our-song" src="assets/ordinary.mp3" preload="auto"></audio>
+            </div>
+        </section>
+
+        <section class="section story">
+            <div class="section-inner">
+                <div class="story-copy">
+                    <p>En un mundo donde las distancias parecen separar destinos, nosotros encontramos la manera de transformar kilómetros en encuentros, esperas en abrazos y despedidas en promesas.</p>
+
+<p>Entre Uruguay y Argentina nació una historia que desafió horarios, rutas interminables y la dificultad de extrañar a alguien todos los días. Porque cuando el amor es verdadero, aprende a resistir la ausencia, a crecer en la espera y a encontrar hogar incluso al otro lado del río.</p>
+
+<p>Queremos celebrar junto a ustedes no solo una boda, sino también el camino recorrido, la paciencia, la complicidad y la certeza de que el amor, cuando es sincero, puede con todo.</p>
+                </div>
+                <img class="godparents-photo" src="assets/Foto argentina y Uruguay.png" alt="Padrinos" width="1200" height="1800">
+            </div>
+        </section>
+
+        <section class="photo-band band-date">
+            <div class="date-inner reveal">
+                <p class="dow">Sábado</p>
+                <p class="day-num">14</p>
+                <p class="month">Noviembre</p>
+                <p class="year">2026</p>
+                <div class="countdown" aria-live="polite">
+                    <div class="count-cell">
+                        <p class="count-num" id="count-days">0</p>
+                        <p class="count-label">Días</p>
+                    </div>
+                    <div class="count-cell">
+                        <p class="count-num" id="count-hours">0</p>
+                        <p class="count-label">Horas</p>
+                    </div>
+                    <div class="count-cell">
+                        <p class="count-num" id="count-minutes">0</p>
+                        <p class="count-label">minutos</p>
+                    </div>
+                    <div class="count-cell">
+                        <p class="count-num" id="count-seconds">0</p>
+                        <p class="count-label">Segundos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="venue venue-ceremony">
+            <h2 class="venue-title">Civil</h2>
+            <p class="venue-place">Dirección Nacional del Registro Civil</p>
+            <p class="venue-time">10:15hs</p>
+            <p class="venue-addr">Sarandí 428, 11000 Montevideo, Departamento de Montevideo, Uruguay</p>
+            <a class="btn" href="https://maps.app.goo.gl/KUdvwLBwzqNDUBQn9" target="_blank" rel="noreferrer noopener">Ubicación</a>
+        </section>
+
+        <section class="venue venue-reception">
+            <h2 class="venue-title">Celebración</h2>
+            <p class="venue-place">Chacra "Las Aguas"</p>
+            <p class="venue-time">19:00hs</p>
+            <p class="venue-addr">Cam. Paja Brava 3552, 12500 Montevideo, Departamento de Montevideo, Uruguay</p>
+            <a class="btn" href="https://maps.app.goo.gl/qF8Uz1ghMJ1BqsCC9" target="_blank" rel="noreferrer noopener">Ubicación</a>
+        </section>
+
+        <section class="section gallery-section">
+            <h2 class="kicker">Galería de Fotos</h2>
+            <div class="gallery">
+                <div class="gallery-track">
+                    <img src="assets/IMG_0541.jpg" alt="Galería 1">
+                    <img src="assets/IMG_0543.jpg" alt="Galería 2">
+                    <img src="assets/IMG_0542.jpg" alt="Galería 3">
+                    <img src="assets/IMG_0540.jpg" alt="Galería 4">
+                    <img src="assets/IMG_0537.jpg" alt="Galería 5">
+                    <img src="assets/IMG_0528.jpg" alt="Galería 6">
+                </div>
+                <button class="gallery-nav prev" type="button" aria-label="Anterior">‹</button>
+                <button class="gallery-nav next" type="button" aria-label="Siguiente">›</button>
+            </div>
+            <div class="dots" aria-label="Indicadores de galería"></div>
+        </section>
+
+        <section class="section dress">
+            <p class="kicker">Código de Vestimenta</p>
+            <h2 class="script-title">Formal</h2>
+            <img class="dress-icon" src="assets/dress-icon.png" alt="">
+            <p class="palette-label"><strong>Nos reservamos estos C O L O R E S</strong></p>
+            <div class="colors-photo">
+                <svg preserveAspectRatio="xMidYMid meet" fill="#53583E" data-bbox="20 20 160 160" viewBox="20 20 160 160" height="100" width="100" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="presentation" aria-hidden="true" aria-label="">
+                    <g>
+                        <path d="M180 100c0 44.183-35.817 80-80 80s-80-35.817-80-80 35.817-80 80-80 80 35.817 80 80z"></path>
+                    </g>
+                </svg>
+                <svg preserveAspectRatio="xMidYMid meet" fill="#AEA38E" data-bbox="20 20 160 160" viewBox="20 20 160 160" height="100" width="100" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="presentation" aria-hidden="true" aria-label="">
+                    <g>
+                        <path d="M180 100c0 44.183-35.817 80-80 80s-80-35.817-80-80 35.817-80 80-80 80 35.817 80 80z"></path>
+                    </g>
+                </svg>
+                <svg preserveAspectRatio="xMidYMid meet" fill="#DDDBD7" data-bbox="20 20 160 160" viewBox="20 20 160 160" height="100" width="100" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="presentation" aria-hidden="true" aria-label="">
+                    <g>
+                        <path d="M180 100c0 44.183-35.817 80-80 80s-80-35.817-80-80 35.817-80 80-80 80 35.817 80 80z"></path>
+                    </g>
+                </svg>
+                <svg preserveAspectRatio="xMidYMid meet" fill="#593B1F" data-bbox="20 20 160 160" viewBox="20 20 160 160" height="100" width="100" xmlns="http://www.w3.org/2000/svg" data-type="shape" role="presentation" aria-hidden="true" aria-label="">
+                    <g>
+                        <path d="M180 100c0 44.183-35.817 80-80 80s-80-35.817-80-80 35.817-80 80-80 80 35.817 80 80z"></path>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+        <section class="section gifts">
+            <div class="gifts-layout">
+                <img class="gift-side" src="assets/IMG_0562.jpg" alt="" width="1200" height="1600">
+                <div class="gifts-copy">
+                    <p class="kicker">Sugerencia de</p>
+                    <h2 class="script-title">Regalos</h2>
+                    <p class="note">Nuestro regalo más importante es su presencia, pero si deseas hacernos un obsequio, lo puedes hacer a través de:</p>
+                    <div class="gift-row">
+                        <div class="gift-item">
+                            <img class="gift-logo" src="assets/mercado-pago-1.svg" alt="Mercado Pago">
+                            <p class="event-no">CVU: 0000003100085226638718</p>
+                            <p class="event-no">Alias: bordazahar.s</p>
+                        </div>
+                        <div class="gift-item">
+                            <img class="gift-logo" src="assets/prex.png" alt="Prex">
+                            <p class="event-no">Número de cuenta: 1051604</p>
+                            <p class="event-no">Nombre de cuenta: Sergio Ignacio Cattino</p>
+                        </div>
+                    </div>
+                </div>
+                <img class="gift-side" src="assets/IMG_0570.jpg" alt="" width="1200" height="1600">
+            </div>
+        </section>
+
+        <section class="lodging band-lodging">
+            <p class="kicker">Sugerencias de</p>
+            <h2 class="script-title">Canciones</h2>
+            <div class="stay-card">
+                <form class="song-form" id="song-form" novalidate>
+                    <div class="field">
+                        <label for="cancion">Canción <span class="req">*</span></label>
+                        <input id="cancion" name="cancion" type="text" required>
+                    </div>
+                    <div class="field">
+                        <label for="artista">Artista <span class="req">*</span></label>
+                        <input id="artista" name="artista" type="text" required>
+                    </div>
+                    <div class="field">
+                        <label for="song-nombre">Tu nombre</label>
+                        <input id="song-nombre" name="nombre" type="text" autocomplete="name">
+                    </div>
+                    <p class="rsvp-error" id="song-error" role="alert"></p>
+                    <button class="btn" type="submit">Enviar</button>
+                </form>
+                <p class="thanks" id="song-thanks">Gracias. Hemos recibido tu envío.</p>
+            </div>
+        </section>
+
+        <section class="section rsvp-section">
+            <p class="kicker">Confirmación de</p>
+            <h2 class="script-title">Asistencia</h2>
+            <p class="deadline">Favor de confirmar su asistencia antes del <strong>10 de Octubre, 2026</strong>.</p>
+
+            <form class="rsvp-form" id="rsvp-form" novalidate>
+                <div class="field">
+                    <label for="nombre">Nombre completo <span class="req">*</span></label>
+                    <input id="nombre" name="nombre" type="text" required autocomplete="name">
+                </div>
+                <fieldset class="radios">
+                    <legend>¿Asistirás? <span class="req">*</span></legend>
+                    <label><input type="radio" name="asistiras" value="Sí" required> Sí</label>
+                    <label><input type="radio" name="asistiras" value="No"> No</label>
+                </fieldset>
+                <div class="field">
+                    <label for="cantidad">Cantidad de asistentes según el número indicado en tu invitación <span class="req">*</span></label>
+                    <select id="cantidad" name="cantidad" required>
+                        <option value="" selected disabled></option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <p class="rsvp-error" id="rsvp-error" role="alert"></p>
+                <button class="btn btn-primary" type="submit">Enviar</button>
+            </form>
+            <p class="thanks" id="rsvp-thanks">Gracias. Hemos recibido tu envío.</p>
+        </section>
+
+        <section class="closing band-closing">
+            <h2 class="closing-title">¡TE ESPERAMOS!</h2>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
