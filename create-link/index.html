@@ -26,6 +26,16 @@
             font-family: Georgia, "Times New Roman", serif;
         }
 
+        .layout {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem 3rem;
+            width: 100%;
+            max-width: 56rem;
+        }
+
         form {
             width: min(28rem, 100%);
             display: flex;
@@ -34,7 +44,8 @@
             text-align: center;
         }
 
-        label {
+        label,
+        .preview-label {
             font-size: 0.95rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -87,24 +98,79 @@
             font-size: 0.9rem;
             opacity: 0.85;
         }
+
+        .preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .preview-frame {
+            width: 390px;
+            height: 700px;
+            max-width: 100%;
+            border: 1px solid var(--timberwood);
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .preview-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .preview-frame {
+                height: 560px;
+            }
+        }
     </style>
 </head>
 <body>
-    <form id="form">
-        <label for="para">Invitados / para</label>
-        <input id="para" name="para" type="text" autocomplete="name" placeholder="Familia García">
-        <button type="submit">Copiar enlace</button>
-        <p id="status" role="status"></p>
-        <p id="url"></p>
-    </form>
+    <div class="layout">
+        <form id="form">
+            <label for="para">Invitados / para</label>
+            <input id="para" name="para" type="text" autocomplete="name" placeholder="Familia García">
+            <button type="submit">Copiar enlace</button>
+            <p id="status" role="status"></p>
+            <p id="url"></p>
+        </form>
+        <div class="preview">
+            <p class="preview-label">Así lo ven</p>
+            <div class="preview-frame">
+                <iframe id="preview" title="Vista previa de la invitación"></iframe>
+            </div>
+        </div>
+    </div>
     <script>
-        const ORIGIN = "http://localhost:5500";
-        // Production: https://bodanachoysantiago.com.ar
+        const ORIGIN = "https://bodanachoysantiago.com.ar";
 
         const form = document.getElementById("form");
         const input = document.getElementById("para");
         const status = document.getElementById("status");
         const urlOut = document.getElementById("url");
+        const preview = document.getElementById("preview");
+
+        let lastPreview = "";
+        let previewTimer = 0;
+
+        function inviteUrl(name) {
+            const trimmed = name.trim();
+            return trimmed
+                ? `${ORIGIN}/?para=${encodeURIComponent(trimmed)}`
+                : `${ORIGIN}/`;
+        }
+
+        function setPreview(name) {
+            const url = inviteUrl(name);
+            if (url === lastPreview) return;
+            lastPreview = url;
+            preview.src = url;
+        }
 
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -113,11 +179,13 @@
                 urlOut.textContent = "";
                 status.textContent = "Escribe un nombre.";
                 input.focus();
+                setPreview("");
                 return;
             }
 
-            const url = `${ORIGIN}/?para=${encodeURIComponent(name)}`;
+            const url = inviteUrl(name);
             urlOut.textContent = url;
+            setPreview(name);
             let copied = false;
             try {
                 await navigator.clipboard.writeText(url);
@@ -137,6 +205,13 @@
                 ? "Enlace copiado."
                 : "No se pudo copiar. Copia el enlace de abajo.";
         });
+
+        input.addEventListener("input", () => {
+            clearTimeout(previewTimer);
+            previewTimer = setTimeout(() => setPreview(input.value), 400);
+        });
+
+        setPreview(input.value);
     </script>
 </body>
 </html>
