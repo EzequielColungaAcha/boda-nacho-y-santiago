@@ -221,6 +221,13 @@ function guestNamesFromParams() {
     return lines;
 }
 
+function withTimeout(promise, ms) {
+    return Promise.race([
+        promise,
+        new Promise((resolve) => setTimeout(resolve, ms)),
+    ]);
+}
+
 function whenWindowLoaded() {
     if (document.readyState === "complete") return Promise.resolve();
     return new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
@@ -228,14 +235,16 @@ function whenWindowLoaded() {
 
 function whenMediaReady(el) {
     if (!el) return Promise.resolve();
-    if (el.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) return Promise.resolve();
+    if (el.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) return Promise.resolve();
     return new Promise((resolve) => {
         const done = () => {
-            el.removeEventListener("canplaythrough", done);
+            el.removeEventListener("loadeddata", done);
+            el.removeEventListener("canplay", done);
             el.removeEventListener("error", done);
             resolve();
         };
-        el.addEventListener("canplaythrough", done);
+        el.addEventListener("loadeddata", done);
+        el.addEventListener("canplay", done);
         el.addEventListener("error", done);
     });
 }
@@ -248,7 +257,7 @@ async function initGate() {
     const loader = document.getElementById("gate-loader");
     if (!gate || !list || !main) return;
 
-    await document.fonts.load('1em "Snell Roundhand"');
+    await withTimeout(document.fonts.load('1em "Snell Roundhand"'), 3000);
     for (const name of guestNamesFromParams()) {
         const line = document.createElement("p");
         line.textContent = name;
@@ -289,10 +298,9 @@ async function initGate() {
     });
 
     Promise.all([
-        document.fonts.ready,
-        whenWindowLoaded(),
-        whenMediaReady(document.getElementById("our-song")),
-        whenMediaReady(document.querySelector(".hero-bg")),
+        withTimeout(document.fonts.ready, 3000),
+        withTimeout(whenWindowLoaded(), 2500),
+        withTimeout(whenMediaReady(document.querySelector(".hero-bg")), 2500),
     ]).then(() => {
         gate.classList.add("is-ready");
         gate.setAttribute("aria-busy", "false");
