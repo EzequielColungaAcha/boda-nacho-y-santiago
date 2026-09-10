@@ -245,6 +245,7 @@ async function initGate() {
     const list = document.getElementById("gate-names");
     const main = document.getElementById("inicio");
     const continueBtn = document.getElementById("gate-continue");
+    const loader = document.getElementById("gate-loader");
     if (!gate || !list || !main) return;
 
     await document.fonts.load('1em "Snell Roundhand"');
@@ -295,6 +296,7 @@ async function initGate() {
     ]).then(() => {
         gate.classList.add("is-ready");
         gate.setAttribute("aria-busy", "false");
+        loader?.setAttribute("hidden", "");
         if (continueBtn) {
             continueBtn.setAttribute("aria-hidden", "false");
             continueBtn.removeAttribute("tabindex");
